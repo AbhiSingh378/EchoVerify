@@ -11,11 +11,11 @@ def lambda_handler(event, context):
         
         # Generate the verification URL
         token = generate_verification_token(sns_message['user_id'])
-        verification_url = f"https://{os.environ['DOMAIN_NAME']}/v1/user?token={token}"
+        verification_url = f"http://demo.{os.environ['DOMAIN_NAME']}/v1/user/verify?token={token}"
 
         # Construct the email message
         email = Mail(
-            from_email=f"{os.environ['SENDER_EMAIL']}",
+            from_email=f"{os.environ['FROM_EMAIL']}",
             to_emails=sns_message['email'],
             subject='Verify Your Account',
             html_content=f'Please verify your account by clicking on this link: {verification_url}'
